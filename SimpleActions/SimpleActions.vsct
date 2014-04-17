@@ -112,6 +112,7 @@
 
   <VisibilityConstraints>
     <VisibilityItem guid="guidSimpleActionsCmdSet" id="cmdidMyAnchorCommand" context="UICONTEXT_CodeWindow"/>
+    <VisibilityItem guid="guidSimpleActionsCmdSet" id="MyMenuController" context="UICONTEXT_CodeWindow"/>
     <VisibilityItem guid="guidSimpleActionsCmdSet" id="cmdidMyDynamicStartCommand" context="UICONTEXT_CodeWindow"/>
   </VisibilityConstraints>
 

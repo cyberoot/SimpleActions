@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using cyberoot.SimpleActions.Model;
+using cyberoot.SimpleActions.Model.Actions;
 
-namespace SimpleActions
+namespace cyberoot.SimpleActions.Helpers
 {
     static class Config
     {
@@ -25,7 +27,7 @@ namespace SimpleActions
                             Pattern = @"\/\/\/\s+<summary>(.*)<\/summary>",
                             Replacement = @"$&\n\t\t[DisplayName(""$1"")]",
                         },
-                        new VsAction("Edit.FormatDocument"), 
+                        new VSCommandAction() { Command = "Edit.FormatDocument" },
                     }
                 }
             };

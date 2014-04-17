@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 using EnvDTE;
 using EnvDTE80;
 
-namespace SimpleActions
+namespace cyberoot.SimpleActions.Model.Actions
 {
-    public class SearchReplaceAction : IAction
+    public class SearchReplaceAction : BaseAction
     {
-        private DTE2 _dte;
-        private Find2 findWin;
-
         public SearchReplaceAction()
         {
             MatchCase = false;
@@ -24,15 +21,10 @@ namespace SimpleActions
         public bool MatchCase { get; set; }
         public bool IsRegExp { get; set; }
 
-        public string GetKind()
+        public override void Execute(DTE2 dte)
         {
-            return "SearchReplaceAction";
-        }
-
-        public void Execute(DTE2 dte)
-        {
-            _dte = dte;
-            findWin = (Find2)_dte.Find;
+            DTE2 _dte = dte;
+            Find2 findWin = (Find2)_dte.Find;
 
             findWin.WaitForFindToComplete = true;
             findWin.MatchCase = MatchCase;

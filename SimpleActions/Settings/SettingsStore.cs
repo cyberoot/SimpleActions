@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using EnvDTE80;
+using System.Text;
+using System.Threading.Tasks;
+using cyberoot.SimpleActions.Model;
+using cyberoot.SimpleActions.Model.Actions;
 using Microsoft.VisualStudio.Settings;
 using Microsoft.VisualStudio.Shell.Settings;
 
-namespace SimpleActions
+namespace cyberoot.SimpleActions.Settings
 {
     class SettingsStore
     {
@@ -127,19 +130,25 @@ namespace SimpleActions
             {
                 throw new Exception("Bad config");
             }
+
             IAction action;
-            switch (actionKind)
+
+            var availableTypeInfo = Assembly.GetExecutingAssembly().DefinedTypes.SingleOrDefault(t => t.Name == actionKind);
+
+            if (availableTypeInfo == null)
             {
-                case "SearchReplaceAction":
-                    action = new SearchReplaceAction();
-                    break;
-                case "VsAction":
-                    action = new VsAction(Read(path + "\\" + actionKey, "Command", null));
-                    break;
-                default:
-                    throw new Exception("Bad config");
-                    break;
+                throw new Exception("Bad config");
             }
+
+            var actionType = Type.GetType(availableTypeInfo.FullName);
+
+            if (actionType == null)
+            {
+                throw new Exception("Bad config");
+            }
+
+            action = (IAction)Activator.CreateInstance(actionType);
+            
             foreach (var property in properties.Where(p => p != "ActionKind"))
             {
                 var propValue = Read(path + "\\" + actionKey, property, null);

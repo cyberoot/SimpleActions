@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EnvDTE80;
 
-namespace SimpleActions
+namespace cyberoot.SimpleActions.Model.Actions
 {
     public interface IAction
     {
